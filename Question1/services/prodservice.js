@@ -3,14 +3,16 @@ import { v4 as uuidv4 } from 'uuid';
 import getToken from "../utils/auth.js"
 const BASE_URL = 'http://20.244.56.144/test';
 const COMPANIES = ['AMZ', 'FLP', 'SNP', 'MYN', 'AZO'];
+const allProducts = [];
 
 
 
 //get all products function 
 export const getProd = async (categoryname, top = 10, minPrice = 0, maxPrice = Infinity, page = 1, sortBy, sortOrder) => {
-    const allProducts = [];
+   
     const limit = Math.min(parseInt(top, 10), 10); // Enforce max limit of 10 per page
     const token = await getToken();
+    allProducts.length = 0;
 
     for (const company of COMPANIES) {
         try {
@@ -59,20 +61,12 @@ export const getProd = async (categoryname, top = 10, minPrice = 0, maxPrice = I
 
 
 export const getProdById = async (categoryname, productid) => {
-    const allProducts = [];
-    const token = await getToken();
-    for (const company of COMPANIES) {
-        const response = await axios.get(`${BASE_URL}/companies/${company}/categories/${categoryname}/products`, {
-            headers: { Authorization: `Bearer ${token}` },
-            params: { top: 100 }
-        });
-        response.data.forEach(product => {
-            product.id = uuidv4();
-            product.company = company;
-        });
-        allProducts.push(...response.data);
+    console.log(allProducts)
+    const product = allProducts.find(product => product.id === productid);
+    console.log(product)
+    if (!product) {
+        throw new Error('Product not found');
     }
-
-    return allProducts.find(product => product.id === productid);
+    return product;
 };
 
