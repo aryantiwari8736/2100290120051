@@ -15,12 +15,12 @@ const AllProduct = ({ cat }) => {
     fetchData();
   }, [cat]);
   return (
-    <div className="flex flex-wrap gap-10 rounded-md">
+    <div className="flex flex-wrap gap-10 rounded-md justify-center">
       {data?.map((e) => (
-        <div className="w-[300px] h-[300px] bg-gray-500 flex flex-col flex-wrap text-white rounded-md justify-center items-center">
+        <div className="w-[300px] h-[300px] bg-slate-400 flex flex-col flex-wrap text-white rounded-md justify-center items-center">
 
             <div>{e.productName}</div>
-            <div>{e.price}</div>
+            <div>{e.price + "rs"}</div>
             <div>{e.company}</div>
             <div>{e.rating}</div>
             </div>

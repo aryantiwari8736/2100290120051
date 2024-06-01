@@ -26,9 +26,13 @@ function App() {
 
   return (
     <div className="App text-3xl">
-      {categories.map((e) => (
-        <div onClick={()=>{setCat(e)}}>{e}</div>
-      ))}
+        <div className="text-3xl font-extrabold">Categories:</div>
+     <div className="flex flec flex-wrap gap-3 p-3">
+     {categories.map((e) => (
+
+<div className="flex cursor-pointer border-slate-950 border-2 p-2" onClick={()=>{setCat(e)}}>{e}</div>
+         
+      ))}</div> 
       <AllProduct  cat = {cat} />
     </div>
   );
